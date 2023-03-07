@@ -48,12 +48,16 @@ class TaskScheduler:
             delay_seconds = 0
 
         # given in microseconds
-        if not isinstance(isinstance, (timedelta, )):
-            interval = timedelta(microseconds=interval if interval else 0)
+        interval_seconds = 0
         if interval is not None:
-            interval_seconds = interval.total_seconds()
-        else:
-            interval_seconds = 0
+            if isinstance(interval, (int, float)):
+                period = timedelta(microseconds=interval)
+            elif not isinstance(interval, (timedelta, )):
+                period = timedelta(0)
+            else:
+                period = interval
+            
+            interval_seconds = period.total_seconds()
 
         task = Task(task_id, func, args=args, kwargs=kwargs, interval=interval_seconds, delay=delay_seconds)
         self.tasks.append(task)
