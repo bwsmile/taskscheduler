@@ -92,7 +92,7 @@ class TaskScheduler:
                     break
 
 
-"""  example:
+""" simple example:
 
 def my_func(arg1,arg2):
     print(f'arg1: {arg1}, arg2: {arg2}')
@@ -102,6 +102,6 @@ def cancel_task(sched, id):
     
 scheduler = TaskScheduler()
 id = scheduler.add_task(event_time, my_func,args=('hello','world'),interval=5)
-scheduler.add_task(cancel_task, args=(scheduler, id), delay=20)
+scheduler.add_task(timedelta(seconds=20), cancel_task, args=(scheduler, id))
 
 """
