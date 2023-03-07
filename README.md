@@ -1,7 +1,7 @@
 # taskscheduler
 A python task scheduler similar to Timer in C++
 
-Scheduler can be add task:
+Scheduler can be added task:
 1. to be scheduled periodly
 2. to be scheduled periodly (or not) after given delay
 3. to be scheduled at a specified time for first time, then run periodly (or not)
