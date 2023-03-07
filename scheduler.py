@@ -61,15 +61,11 @@ class TaskScheduler:
 
         task = Task(task_id, func, args=args, kwargs=kwargs, interval=interval_seconds, delay=delay_seconds)
         self.tasks.append(task)
-        if task.delay:
-            if task.interval is None:
-                task.timer = threading.Timer(task.delay, task.func, args=task.args, kwargs=task.kwargs)
-                task.timer.start()
-            else:
-                task.timer = threading.Timer(task.delay, self._run_periodic_task, args=(task, ))
-                task.timer.start()
+        if not task.interval > 0:
+            task.timer = threading.Timer(task.delay, task.func, args=task.args, kwargs=task.kwargs)
+            task.timer.start()
         else:
-            task.timer = threading.Timer(0, self._run_periodic_task, args=(task, ))
+            task.timer = threading.Timer(task.delay, self._run_periodic_task, args=(task, ))
             task.timer.start()
 
         # Increment next_id for next added task.
