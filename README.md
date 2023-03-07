@@ -28,4 +28,10 @@ def cancel_task(sched, id):
 id = s.add_task(0, my_func,args=('hello','world'),interval=5)
 s.add_task(20, cancel_task, args=(scheduler, id))
 
+id2 = s.add_task('12:00:00', func, args=('hello', ' noon!'))
+
+from datetime import timedelta
+
+id3 = s.add_task(timedelta(seconds=12), func, args=('start', 'after 12 seconds', 'then repeat every 1000 microseconds'), interval=1000)
+
 ```
